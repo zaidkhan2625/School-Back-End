@@ -4,6 +4,9 @@ const app = express();
 app.get('/',(req , res)=>{
     res.send("hello i am live once again ");
 })
+app.get('/done' ,(req , res)=>{
+    res.send("now api check for the route");
+})
 connectDb().then(() => {
     // Start server
     const port = process.env.PORT || 2001;
