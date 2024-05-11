@@ -2,7 +2,7 @@ const express = require("express");
 const connectDb = require("./Database/db");
 const app = express();
 app.get('/',(req , res)=>{
-    res.send("hello i am live ");
+    res.send("hello i am live once again ");
 })
 connectDb().then(() => {
     // Start server
