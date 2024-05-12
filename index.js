@@ -1,12 +1,8 @@
 const express = require("express");
 const connectDb = require("./Database/db");
 const app = express();
-app.get('/',(req , res)=>{
-    res.send("hello i am live once again ");
-})
-app.get('/done' ,(req , res)=>{
-    res.send("now api check for the route");
-})
+const router = require("./Router/UserRouter");
+app.use('/school/v1',router);
 connectDb().then(() => {
     // Start server
     const port = process.env.PORT || 2001;
