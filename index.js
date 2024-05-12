@@ -2,6 +2,9 @@ const express = require("express");
 const connectDb = require("./Database/db");
 const app = express();
 const router = require("./Router/UserRouter");
+app.get('/',(req , res)=>{
+  res.send("hello");
+})
 app.use('/school/v1',router);
 connectDb().then(() => {
     // Start server
