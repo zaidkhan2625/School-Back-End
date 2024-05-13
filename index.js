@@ -13,7 +13,7 @@ app.get('/',(req , res)=>{
 app.use('/school/v1',router);
 connectDb().then(() => {
     // Start server
-    const port = process.env.PORT || 2001;
+    const port = process.env.PORT || 3002;
     app.listen(port, () => {
       console.log(`App is listening on port ${port}`);
     });
