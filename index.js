@@ -2,6 +2,12 @@ const express = require("express");
 const connectDb = require("./Database/db");
 const app = express();
 const router = require("./Router/UserRouter");
+// const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+app.use(express.json());
+app.use(bodyParser.urlencoded());
+// app.use(cookieParser());
+app.use(bodyParser.json());
 app.get('/',(req , res)=>{
   res.send("hello");
 })
