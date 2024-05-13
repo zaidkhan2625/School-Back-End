@@ -2,7 +2,6 @@ const express = require("express");
 const route = express.Router();
 const bcrypt = require("bcrypt"); // Import bcrypt for password hashing
 const {newAdmin} = require("../DatabseFolder/DatabseforUser");
-
 route.get('/user', (req, res) => {
     res.send("hello user i am here");
 });
