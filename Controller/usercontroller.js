@@ -1,5 +1,4 @@
-const express = require("express");
-const route = express.Router();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const {newAdmin} = require("../DatabseFolder/DatabseforUser");
 const addAdmin  = async (req, res) => {
@@ -20,4 +19,25 @@ const addAdmin  = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
-module.exports = {addAdmin};
+const loginAdmin = async (req, res) => {
+    const { Email, password } = req.body;
+    try {
+        const user = await newAdmin.findOne({ Email }); 
+        if (!user) {
+            return res.status(404).send("User not found"); 
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.status(401).send("Invalid password"); 
+        }
+        const token = jwt.sign({ userId: user._id, email: user.Email }, 'your_secret_key', { expiresIn: '1h' });
+        res.cookie('token', token, { httpOnly: true });
+        res.json({status:"Login successful",token:token,data:user});
+    } catch (error) {
+        console.error("Error:", error.message);
+        res.status(500).send("Internal Server Error");
+    }
+};
+
+module.exports = {addAdmin, loginAdmin};
