@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { newAdmin } = require("../DatabseFolder/DatabseforUser");
+const { newAdmin, newStudent } = require("../DatabseFolder/DatabseforUser");
 const addAdmin = async (req, res) => {
   const { name, Email, password } = req.body;
   try {
@@ -65,6 +65,22 @@ const authenticateAdmin = (req, res, next) => {
   }
 };
 const userAdd = async(req , res)=>{
-    res.send("hello");
+    const {name,password,Email}=req.body;
+    try {
+        const userExists = await newStudent.findOne({ Email }); // Assuming newUser is a Mongoose model
+        if (userExists) {
+          res.send("Email already exists");
+        } else if (name && Email && password) {
+          const hashedPassword = await bcrypt.hash(password, 10);
+          await newStudent.create({ name, Email, password: hashedPassword }); // Assuming 'role' is defined
+          res.send("Admin added successfully");
+        } else {
+          res.send("Incomplete data provided");
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
+        res.status(500).send("Internal Server Error");
+      }
+    
 }
 module.exports = { addAdmin, loginAdmin, authenticateAdmin,userAdd };

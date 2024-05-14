@@ -35,7 +35,7 @@ const Event = new mongoose.Schema({
   ]),
 });
 
-const newUser = mongoose.model("User", User);
+const newStudent = mongoose.model("User", User);
 const newAdmin = mongoose.model("Admin",Admin);
 const newEvent = mongoose.model("Event", Event);
-module.exports = { newUser, newEvent ,newAdmin};
+module.exports = { newStudent, newEvent ,newAdmin};
